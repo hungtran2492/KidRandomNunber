@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:random_number/screen/custom_widget/custom_appbar.dart';
+import 'package:random_number/screen/number_game.dart';
 import 'package:random_number/theme/images.dart';
 
 class MainScreen extends StatefulWidget {
@@ -35,49 +37,7 @@ class _MainScreenState extends State<MainScreen> {
   }
 }
 
-class GradientAppBar extends StatelessWidget {
-  final String title;
-  final double barHeight;
 
-  GradientAppBar(this.title, this.barHeight);
-
-  @override
-  Widget build(BuildContext context) {
-    final double statusbarHeight = MediaQuery.of(context).padding.top;
-
-    return Container(
-        padding: EdgeInsets.only(top: statusbarHeight),
-        height: statusbarHeight + barHeight,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-              colors: [Colors.pinkAccent, Colors.redAccent],
-              begin: const FractionalOffset(0.0, 0.0),
-              end: const FractionalOffset(0.5, 0.0),
-              stops: [0.0, 1.0],
-              tileMode: TileMode.clamp),
-        ),
-        child: Stack(
-          children: <Widget>[
-            Center(
-              child: Text(
-                title,
-                style: TextStyle(
-                    fontSize: 20.0,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: About(),
-              ),
-            )
-          ],
-        ));
-  }
-}
 
 class Categories extends StatefulWidget {
   @override
@@ -116,6 +76,7 @@ class _CategoriesState extends State<Categories> {
                     onTap: () {
                       if(categories.contains(Images.number)){
                         print('Navigate To Number Game');
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>NumberGameScreen()));
                       }
                       else if (categories.contains(Images.color)){
                         print('Navigate To Color Game');
@@ -139,28 +100,6 @@ class _CategoriesState extends State<Categories> {
   }
 }
 
-class About extends StatefulWidget {
-  @override
-  _AboutState createState() => _AboutState();
-}
 
-class _AboutState extends State<About> {
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-        icon: Icon(Icons.error),
-        onPressed: () {
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: Text('About'),
-                  content: Text('About and Report Bug')
-
-                );
-              });
-        });
-  }
-}
 
 
